@@ -78,7 +78,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @param userId
      * @return
      */
-    private List<Role> getUserRoles(Integer userId) {
+    private List<Role> getUserRoles(Long userId) {
 //        List<UserRole> userRoles = userRoleMapper.selectList(new EntityWrapper<UserRole>().eq("user_id", userId));
         List<UserRole> userRoles = userRoleMapper.selectList(new QueryWrapper<UserRole>().lambda().eq(UserRole::getUserId,userId));
         List<Role> roleList = new LinkedList<>();

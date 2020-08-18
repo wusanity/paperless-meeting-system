@@ -36,7 +36,7 @@ public class User extends BaseEntity<User> {
      */
 	@ApiModelProperty(value = "主键ID")
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 账号
      */

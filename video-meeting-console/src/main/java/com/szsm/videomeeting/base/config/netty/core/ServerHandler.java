@@ -105,8 +105,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
             }*/
 
-            ConcurrentHashMap<Integer,String> userMeetingMap = NettyConfig.getUserMeetingMap();
-            for (Integer userId : userMeetingMap.keySet()) {
+            ConcurrentHashMap<Long,String> userMeetingMap = NettyConfig.getUserMeetingMap();
+            for (Long userId : userMeetingMap.keySet()) {
                 if (userMeetingMap.get(userId).equals(baseDTO.getMeetingNo())){
 //                    pushService.pushMsgToOne(baseDTO.getUserId(),"lalala~~~~~");
                     Channel channel = NettyConfig.getUserChannelMap().get(userId);
@@ -181,7 +181,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         /*AttributeKey<String> key = AttributeKey.valueOf("userId");
         String userId = ctx.channel().attr(key).get();
         NettyConfig.getUserChannelMap().remove(userId);*/
-        Integer userId = NettyConfig.getChannelIdserMap().get(ctx.channel().id());
+        Long userId = NettyConfig.getChannelIdserMap().get(ctx.channel().id());
         NettyConfig.getChannelIdserMap().remove(ctx.channel().id());
         NettyConfig.getUserChannelMap().remove(userId);
         NettyConfig.getUserMeetingMap().remove(userId);

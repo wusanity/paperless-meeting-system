@@ -31,7 +31,7 @@ public class Constants {
     /**
      * 请求头 - token
      */
-    public static final String REQUEST_HEADER = "X-Token";
+    public static final String REQUEST_HEADER = "access_token";
 
     /**
      * 请求头类型：

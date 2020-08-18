@@ -15,5 +15,5 @@ import lombok.Data;
 @Data
 public class BaseQuery extends BasePageQuery{
     @ApiModelProperty(value = "用户ID")
-    private Integer userId;
+    private Long userId;
 }

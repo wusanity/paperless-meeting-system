@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BaseDTO {
 
-    private Integer userId;
+    private Long userId;
 
     private String meetingNo;
 

@@ -30,7 +30,7 @@ public class RoleMenu extends BaseEntity {
      */
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     /**
      * 角色ID
      */

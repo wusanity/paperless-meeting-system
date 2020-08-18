@@ -29,7 +29,7 @@ public class UserRole extends BaseEntity<UserRole> {
      */
 	@ApiModelProperty(value = "主键")
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 用户ID
      */

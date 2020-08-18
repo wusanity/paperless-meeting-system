@@ -21,16 +21,16 @@ public class NettyConfig {
      *
      * channel和 会议号
      */
-    private static ConcurrentHashMap<Integer,Channel> userChannelMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Long,Channel> userChannelMap = new ConcurrentHashMap<>();
     /**
      * 用户会议号
      */
-    private static ConcurrentHashMap<Integer,String> userMeetingMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Long,String> userMeetingMap = new ConcurrentHashMap<>();
 
     /**
      * channelId，用户
      */
-    private static ConcurrentHashMap<ChannelId,Integer> channelIdserMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<ChannelId,Long> channelIdUserMap = new ConcurrentHashMap<>();
 
     private NettyConfig() {}
 
@@ -46,7 +46,7 @@ public class NettyConfig {
      * 获取用户channel map
      * @return
      */
-    public static ConcurrentHashMap<Integer,Channel> getUserChannelMap(){
+    public static ConcurrentHashMap<Long,Channel> getUserChannelMap(){
         return userChannelMap;
     }
 
@@ -54,7 +54,7 @@ public class NettyConfig {
      * 获取用户channel map
      * @return
      */
-    public static ConcurrentHashMap<Integer,String> getUserMeetingMap(){
+    public static ConcurrentHashMap<Long,String> getUserMeetingMap(){
         return userMeetingMap;
     }
 
@@ -62,8 +62,8 @@ public class NettyConfig {
      * 获取用channelId userId map
      * @return
      */
-    public static ConcurrentHashMap<ChannelId,Integer> getChannelIdserMap(){
-        return channelIdserMap;
+    public static ConcurrentHashMap<ChannelId,Long> getChannelIdserMap(){
+        return channelIdUserMap;
     }
 
    /* public static void put(String  meetingNo,Integer userId,Channel channel){

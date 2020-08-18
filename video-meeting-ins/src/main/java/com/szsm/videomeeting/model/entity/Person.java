@@ -38,7 +38,7 @@ public class Person extends Model<Person> implements Serializable{
     private Date updateTime;
 
     @TableField(value = "create_by", fill = FieldFill.INSERT)
-    private int createBy;
+    private Long createBy;
 
     @TableField(value = "deleted")
     @TableLogic
