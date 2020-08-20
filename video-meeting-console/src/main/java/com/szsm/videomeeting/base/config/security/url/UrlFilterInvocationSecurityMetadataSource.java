@@ -52,7 +52,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
                 || requestUrl.contains("/person/person")
                 || requestUrl.contains("/push/pushOne")
                 || requestUrl.contains("/push/pushAll")
-                || requestUrl.contains("/getList")) {
+                || requestUrl.contains("/person/getList")) {
             return null;
         }
 
