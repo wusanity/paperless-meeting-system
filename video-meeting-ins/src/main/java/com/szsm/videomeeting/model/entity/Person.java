@@ -2,6 +2,7 @@ package com.szsm.videomeeting.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.szsm.videomeeting.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("person")
-public class Person extends Model<Person> implements Serializable{
+public class Person extends BaseEntity implements Serializable{
 
 
     private static final long serialVersionUID = -6320009684551881187L;

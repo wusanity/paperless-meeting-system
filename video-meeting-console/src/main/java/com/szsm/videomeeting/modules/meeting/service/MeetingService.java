@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.szsm.videomeeting.model.dto.PersonDTO;
 import com.szsm.videomeeting.model.entity.Person;
 
-public interface MeetingService extends IService<Person> {
+public interface MeetingService {
 
-    Page<Person> getList(Page<Person> page, PersonDTO person);
+
 }
