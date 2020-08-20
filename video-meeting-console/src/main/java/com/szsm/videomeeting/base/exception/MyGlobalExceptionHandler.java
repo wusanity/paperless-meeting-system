@@ -2,8 +2,6 @@ package com.szsm.videomeeting.base.exception;
 
 import com.szsm.videomeeting.base.context.ApiResult;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,8 +21,6 @@ import javax.validation.ValidationException;
 @Slf4j
 @RestControllerAdvice
 public class MyGlobalExceptionHandler {
-
-    private static final Logger LOG = LoggerFactory.getLogger(MyGlobalExceptionHandler.class);
 
     /**
      * 自定义异常处理
@@ -86,7 +82,7 @@ public class MyGlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ApiResult handleRuntimeException(RuntimeException e) {
-        LOG.error("系统异常:", e);
+        log.error("系统异常:", e);
         return ApiResult.fail("系统异常，操作失败");
     }
 
