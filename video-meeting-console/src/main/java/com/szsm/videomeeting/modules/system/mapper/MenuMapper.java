@@ -1,8 +1,7 @@
 package com.szsm.videomeeting.modules.system.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.szsm.videomeeting.modules.system.model.entity.Menu;
+import com.szsm.videomeeting.model.entity.Menu;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

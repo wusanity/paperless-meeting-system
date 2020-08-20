@@ -2,7 +2,7 @@ package com.szsm.videomeeting.modules.system.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.szsm.videomeeting.modules.system.model.entity.User;
+import com.szsm.videomeeting.model.entity.User;
 import org.apache.ibatis.annotations.Select;
 
 /**

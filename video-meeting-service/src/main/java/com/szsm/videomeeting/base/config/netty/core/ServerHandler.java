@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.szsm.videomeeting.base.config.netty.dto.BaseDTO;
 import com.szsm.videomeeting.base.config.netty.router.RouterContext;
 import com.szsm.videomeeting.base.context.ApiResult;
-import com.szsm.videomeeting.modules.kk.service.PushService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -23,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ChannelHandler.Sharable
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-    @Autowired
-    private PushService pushService;
+//    @Autowired
+//    private PushService pushService;
 
     /**
      * 心跳丢失次数

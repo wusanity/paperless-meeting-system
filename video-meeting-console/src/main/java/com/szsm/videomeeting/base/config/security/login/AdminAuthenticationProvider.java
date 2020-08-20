@@ -4,7 +4,7 @@ import com.szsm.videomeeting.base.constant.Constants;
 import com.szsm.videomeeting.base.config.security.dto.SecurityUser;
 import com.szsm.videomeeting.base.config.security.service.impl.UserDetailsServiceImpl;
 import com.szsm.videomeeting.base.util.PasswordUtils;
-import com.szsm.videomeeting.modules.system.model.entity.User;
+import com.szsm.videomeeting.model.entity.User;
 import com.szsm.videomeeting.modules.system.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

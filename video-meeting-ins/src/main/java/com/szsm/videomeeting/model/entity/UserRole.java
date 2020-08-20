@@ -1,15 +1,13 @@
-package com.szsm.videomeeting.modules.system.model.entity;
+package com.szsm.videomeeting.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.szsm.videomeeting.base.context.BaseEntity;
+import com.szsm.videomeeting.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * <p>  系统管理 - 用户角色关联表  </p>

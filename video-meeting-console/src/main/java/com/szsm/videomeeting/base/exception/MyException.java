@@ -1,6 +1,7 @@
 package com.szsm.videomeeting.base.exception;
 
 import com.szsm.videomeeting.base.enums.ResultCode;
+import com.szsm.videomeeting.base.enums.ServiceExceptionEnum;
 
 /**
  *  <p> 自定义异常类 </p>
@@ -27,6 +28,11 @@ public class MyException extends RuntimeException {
     public MyException(Integer code, String message) {
         super(message);
         this.code = code;
+    }
+
+    public MyException(ServiceExceptionEnum serviceExceptionEnum) {
+        super(serviceExceptionEnum.getMessage());
+        this.code = serviceExceptionEnum.getCode();
     }
 
     public MyException(ResultCode resultCode){

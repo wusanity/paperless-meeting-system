@@ -1,4 +1,4 @@
-package com.szsm.videomeeting.base.context;
+package com.szsm.videomeeting.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

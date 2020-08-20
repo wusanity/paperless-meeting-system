@@ -2,9 +2,9 @@ package com.szsm.videomeeting.base.config.security.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.szsm.videomeeting.base.config.security.dto.SecurityUser;
-import com.szsm.videomeeting.modules.system.model.entity.Role;
-import com.szsm.videomeeting.modules.system.model.entity.User;
-import com.szsm.videomeeting.modules.system.model.entity.UserRole;
+import com.szsm.videomeeting.model.entity.Role;
+import com.szsm.videomeeting.model.entity.User;
+import com.szsm.videomeeting.model.entity.UserRole;
 import com.szsm.videomeeting.modules.system.mapper.RoleMapper;
 import com.szsm.videomeeting.modules.system.mapper.UserMapper;
 import com.szsm.videomeeting.modules.system.mapper.UserRoleMapper;

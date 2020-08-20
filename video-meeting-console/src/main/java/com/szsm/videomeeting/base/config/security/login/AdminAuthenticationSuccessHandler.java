@@ -3,7 +3,7 @@ package com.szsm.videomeeting.base.config.security.login;
 import com.szsm.videomeeting.base.config.security.dto.SecurityUser;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.util.ResponseUtils;
-import com.szsm.videomeeting.modules.system.model.entity.User;
+import com.szsm.videomeeting.model.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

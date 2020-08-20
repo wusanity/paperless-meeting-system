@@ -2,8 +2,8 @@ package com.szsm.videomeeting.modules.system.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.szsm.videomeeting.modules.system.model.entity.User;
-import com.szsm.videomeeting.modules.system.model.entity.UserRole;
+import com.szsm.videomeeting.model.entity.User;
+import com.szsm.videomeeting.model.entity.UserRole;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;

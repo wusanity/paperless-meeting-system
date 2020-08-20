@@ -6,7 +6,7 @@ import com.szsm.videomeeting.base.config.security.login.AdminAuthenticationFailu
 import com.szsm.videomeeting.base.config.security.login.AdminAuthenticationSuccessHandler;
 import com.szsm.videomeeting.base.config.security.login.CusAuthenticationManager;
 import com.szsm.videomeeting.base.util.MultiReadHttpServletRequest;
-import com.szsm.videomeeting.modules.system.model.entity.User;
+import com.szsm.videomeeting.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

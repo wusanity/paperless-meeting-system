@@ -1,7 +1,7 @@
 package com.szsm.videomeeting.base.config.security.dto;
 
-import com.szsm.videomeeting.modules.system.model.entity.Role;
-import com.szsm.videomeeting.modules.system.model.entity.User;
+import com.szsm.videomeeting.model.entity.Role;
+import com.szsm.videomeeting.model.entity.User;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

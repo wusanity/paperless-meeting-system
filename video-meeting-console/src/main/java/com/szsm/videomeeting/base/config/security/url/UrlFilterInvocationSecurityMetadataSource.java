@@ -2,11 +2,11 @@ package com.szsm.videomeeting.base.config.security.url;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.szsm.videomeeting.base.constant.Constants;
+import com.szsm.videomeeting.model.entity.Menu;
+import com.szsm.videomeeting.model.entity.Role;
+import com.szsm.videomeeting.model.entity.RoleMenu;
 import com.szsm.videomeeting.modules.system.mapper.MenuMapper;
 import com.szsm.videomeeting.modules.system.mapper.RoleMenuMapper;
-import com.szsm.videomeeting.modules.system.model.entity.Menu;
-import com.szsm.videomeeting.modules.system.model.entity.Role;
-import com.szsm.videomeeting.modules.system.model.entity.RoleMenu;
 import com.szsm.videomeeting.modules.system.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;

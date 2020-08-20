@@ -16,7 +16,9 @@ public enum PersonErrorEnums implements ServiceExceptionEnum{
      * 参数为空
      */
 
-    PARAM_MISS( 100001, "参数为空" );
+    PARAM_MISS( 100001, "参数为空" ),
+    PASSWORD_ERROR( 100002, "密码错误" )
+    ;
 
     private int code;
     private String message;
