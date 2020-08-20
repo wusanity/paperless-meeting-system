@@ -11,9 +11,8 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface PersonMapper extends BaseMapper<Person> {
+public interface KKMapper extends BaseMapper<Person> {
 
-    List<Person> getList(Page page, @Param("filter") PersonDTO personDTO);
 
 
 }
