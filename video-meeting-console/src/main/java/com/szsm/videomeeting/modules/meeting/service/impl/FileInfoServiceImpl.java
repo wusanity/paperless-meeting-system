@@ -1,6 +1,7 @@
 package com.szsm.videomeeting.modules.meeting.service.impl;
 
 import com.szsm.videomeeting.base.BaseEntity;
+import com.szsm.videomeeting.base.constant.ApiConstant;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.exception.MyException;
 import com.szsm.videomeeting.model.dto.FileUploadDTO;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import static com.szsm.videomeeting.base.constant.ApiConstant.Code.SUCCESS_CODE;
+
 /**
  *文件表service实现
  * @author LiuJun
@@ -36,7 +39,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     private FileInfoMapper fileInfoMapper;
 
     @Override
-    public ApiResult upload(MultipartFile file, FileUploadDTO fileUploadDTO) throws IOException {
+    public ApiResult upload(MultipartFile file, FileUploadDTO fileUploadDTO) throws MyException {
         if (fileUploadDTO == null || file == null) {
             return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
         }
@@ -67,7 +70,14 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         /**
          * 2、将文件写入服务器对应目录，并将记录保存至数据库
          */
-        file.transferTo(new File(filePath));
+        try {
+            file.transferTo(new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new MyException("文件上传异常！");
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileName(fileName);
         fileInfo.setFilePath(filePath);
@@ -82,7 +92,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
          */
         fileInfo.setFilePath("");
         apiResult.setData(fileInfo);
-        apiResult.setCode(1);
+        apiResult.setCode(ApiConstant.Code.SUCCESS_CODE);
         apiResult.setMessage("上传成功");
         return apiResult;
     }

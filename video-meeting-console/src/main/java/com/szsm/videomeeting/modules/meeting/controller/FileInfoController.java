@@ -2,6 +2,7 @@ package com.szsm.videomeeting.modules.meeting.controller;
 
 
 import com.szsm.videomeeting.base.context.ApiResult;
+import com.szsm.videomeeting.base.exception.MyException;
 import com.szsm.videomeeting.model.dto.FileUploadDTO;
 import com.szsm.videomeeting.model.entity.FileInfo;
 import com.szsm.videomeeting.modules.kk.enums.PersonErrorEnums;
@@ -38,7 +39,7 @@ public class FileInfoController {
      */
     @PostMapping(value = "/upload")
     @ResponseBody
-    public ApiResult upload(@RequestParam("file") MultipartFile file, FileUploadDTO fileUploadDTO) throws IOException {
+    public ApiResult upload(@RequestParam("file") MultipartFile file, FileUploadDTO fileUploadDTO) throws MyException {
         return fileInfoService.upload(file, fileUploadDTO);
     }
 
