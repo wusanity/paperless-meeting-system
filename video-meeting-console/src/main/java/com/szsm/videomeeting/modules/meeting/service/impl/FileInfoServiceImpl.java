@@ -1,32 +1,35 @@
 package com.szsm.videomeeting.modules.meeting.service.impl;
 
-import com.szsm.videomeeting.base.BaseEntity;
 import com.szsm.videomeeting.base.constant.ApiConstant;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.exception.MyException;
+import com.szsm.videomeeting.base.util.ExcelUtil;
 import com.szsm.videomeeting.model.dto.FileUploadDTO;
 import com.szsm.videomeeting.model.entity.FileInfo;
 import com.szsm.videomeeting.modules.kk.enums.PersonErrorEnums;
 import com.szsm.videomeeting.modules.meeting.constant.MeetingConstant;
-import com.szsm.videomeeting.modules.meeting.enums.MeetingErrorEnums;
 import com.szsm.videomeeting.modules.meeting.mapper.FileInfoMapper;
 import com.szsm.videomeeting.modules.meeting.service.FileInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
-
-import static com.szsm.videomeeting.base.constant.ApiConstant.Code.SUCCESS_CODE;
+import java.util.List;
 
 /**
- *文件表service实现
+ * 文件表service实现
+ *
  * @author LiuJun
  * @date 2020-08-20
  */
@@ -75,8 +78,6 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         } catch (IOException e) {
             e.printStackTrace();
             throw new MyException("文件上传异常！");
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
         }
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileName(fileName);
@@ -104,9 +105,9 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         /**
          * 先删除服务器文件，再删除数据库记录
          */
-        if(fileInfo != null) {
+        if (fileInfo != null) {
             String filePath = fileInfo.getFilePath();
-            if(StringUtils.isNotBlank(filePath)) {
+            if (StringUtils.isNotBlank(filePath)) {
                 File file = new File(filePath);
                 // 路径为文件且不为空则进行删除
                 if (file.isFile() && file.exists()) {
@@ -118,9 +119,107 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         return ApiResult.SUCCESS;
     }
 
+    @Override
+    public ApiResult fileDownload(String modelFileName, HttpServletResponse response, Long fileId) {
+        InputStream inputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        String fileName = "";
+        if (StringUtils.isBlank(modelFileName) && fileId == null) {
+            return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
+        }
+
+        try {
+            /**
+             * 模板文件下载
+             */
+            if (StringUtils.isNotBlank(modelFileName)) {
+                fileName = URLDecoder.decode(modelFileName, "UTF-8");
+                String path = MeetingConstant.TEMPLATE_FILE_PATH + fileName;
+                inputStream = this.getClass().getResourceAsStream(path);
+            } else {
+                /**
+                 * 普通文件下载
+                 */
+                FileInfo fileInfo = this.getById(fileId);
+                if (fileInfo != null) {
+                    String path = fileInfo.getFilePath();
+                    fileName = fileInfo.getFileName();
+                    if(StringUtils.isNotBlank(path)) {
+                        inputStream = new FileInputStream(path);
+                    }
+                }
+            }
+
+            /**
+             * 输出流文件
+             */
+            if (inputStream != null) {
+                bufferedInputStream = new BufferedInputStream(inputStream);
+                // 设置输出的格式
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentDispositionFormData("attachment", fileName);
+                response.setCharacterEncoding("utf-8");
+                response.setContentType("application/x-download");
+                response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+
+                // 循环取出流中的数据
+                byte[] b = new byte[1024];
+                int len;
+                while ((len = bufferedInputStream.read(b)) > 0) {
+                    response.getOutputStream().write(b, 0, len);
+                }
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw new MyException("文件名URL编码异常！");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new MyException("文件路径下未找到相应文件！");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new MyException("文件下载失败！");
+        }finally {
+            //释放资源
+            if (inputStream != null && bufferedInputStream != null) {
+                try {
+                    inputStream.close();
+                    bufferedInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ApiResult.SUCCESS;
+    }
+
+    @Override
+    public ApiResult excelImport(MultipartFile file) {
+        ApiResult apiResult = new ApiResult();
+        if(file == null) {
+            return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
+        }
+
+        try {
+            InputStream inputStream = new BufferedInputStream(file.getInputStream());
+            if (inputStream != null) {
+                //调用excel解析工具类，对文件进行解析并返回list
+                List<Object> excelList = ExcelUtil.readLessThan1000Row("", inputStream);
+                if(CollectionUtils.isNotEmpty(excelList)) {
+                    apiResult.setData(excelList);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new MyException("获取excel流文件IO异常,文件名：" + file.getName());
+        }
+        apiResult.setCode(ApiConstant.Code.SUCCESS_CODE);
+        return apiResult;
+    }
+
     /**
      * 计算文件大小:将字节转换为KB或M
-     * @param bytes
+     *
+     * @param bytes 字节
      * @return
      */
     private String bytesTrans(long bytes) {
@@ -128,7 +227,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         BigDecimal megabyte = new BigDecimal(1024 * 1024);
 
         float returnValue = fileSize.divide(megabyte, 2, BigDecimal.ROUND_UP).floatValue();
-        if (returnValue > 1){
+        if (returnValue > 1) {
             return (returnValue + "MB");
         }
         BigDecimal kilobyte = new BigDecimal(1024);
