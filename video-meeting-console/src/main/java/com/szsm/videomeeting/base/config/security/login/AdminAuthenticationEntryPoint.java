@@ -25,7 +25,7 @@ public class AdminAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        log.error(e.getMessage());
+//        log.error(e.getMessage());
         ResponseUtils.out(response, ApiResult.fail(ResultCode.REGISTER_ERROR));
 
     }

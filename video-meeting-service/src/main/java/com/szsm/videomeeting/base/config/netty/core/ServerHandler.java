@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.RandomAccessFile;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -46,11 +48,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
 
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("channelActive----->");
     }
-
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -81,7 +83,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             byte[] req = new byte[buf.readableBytes()];
             buf.readBytes(req);
             String reqStr = new String(req);
-            JSONObject jsonObject = JSONObject.parseObject(reqStr);
+            RouterContext.routeAndHandle(ctx,reqStr);
+            /*JSONObject jsonObject = JSONObject.parseObject(reqStr);
             Object header = jsonObject.get("header");
             if (header.equals(0)){
                 // 发的是心跳包
@@ -98,11 +101,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 //            AttributeKey<Integer> key = AttributeKey.valueOf("userId");
 //            ctx.channel().attr(key).setIfAbsent(baseDTO.getUserId());
             //todo:根据会议编号查询哪些channel要收到信息,此处可以考虑多线程进行写数据
-            /*Collection<ConcurrentHashMap<String, Channel>> values1 = NettyConfig.getUserChannelMap().values();
+            *//*Collection<ConcurrentHashMap<String, Channel>> values1 = NettyConfig.getUserChannelMap().values();
             for (ConcurrentHashMap<String, Channel> map : values1) {
                 Iterator<Map.Entry<String, Channel>> iterator = map.entrySet().iterator();
 
-            }*/
+            }*//*
 
             ConcurrentHashMap<Integer,String> userMeetingMap = NettyConfig.getUserMeetingMap();
             for (Integer userId : userMeetingMap.keySet()) {
@@ -130,8 +133,26 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                         channel.writeAndFlush(Unpooled.copiedBuffer(rsp.getBytes()));
                     }
                 }
+            }*/
+            String url = "";
+            String CR=System.getProperty("line.separator");
+            File file=new File(url);
+            if (file.exists()) {
+                if (!file.isFile()) {
+                    //写入换行符表示文件结束
+                    ctx.writeAndFlush("Not a file: " + file + CR);
+                    return;
+                }
+                //换行符表示文件结尾
+                ctx.write(file + " " + file.length() + CR);
+                RandomAccessFile randomAccessFile = new RandomAccessFile(url, "r");
+                FileRegion region = new DefaultFileRegion(
+                        randomAccessFile.getChannel(), 0, randomAccessFile.length());
+                ctx.write(region);
+                //写入换行符表示文件结束
+                ctx.writeAndFlush(CR);
+                randomAccessFile.close();
             }
-
 
         }finally {
             ReferenceCountUtil.release(buf);

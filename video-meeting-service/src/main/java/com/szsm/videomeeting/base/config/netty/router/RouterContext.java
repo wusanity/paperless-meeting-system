@@ -1,5 +1,11 @@
 package com.szsm.videomeeting.base.config.netty.router;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.szsm.videomeeting.base.config.netty.dto.BaseDataBody;
+import com.szsm.videomeeting.base.config.netty.service.BaseFacade;
+import com.szsm.videomeeting.base.config.netty.dto.DataHeader;
+import com.szsm.videomeeting.base.config.netty.dto.DataOutside;
 import com.szsm.videomeeting.base.context.ApiResult;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +33,7 @@ public final class RouterContext {
      * @param msg json 消息
      * @return 应答消息(终端暂无支持)
      */
-    /*public static Results routeAndHandle(ChannelHandlerContext ctx, String msg) {
+    public static ApiResult routeAndHandle(ChannelHandlerContext ctx, String msg) {
         DataOutside dataOutside = new DataOutside();
         try {
             JSONObject jsonObject = JSONObject.parseObject(msg);
@@ -39,30 +45,33 @@ public final class RouterContext {
                 log.error("数据体获取失败:{}", JSONObject.toJSONString(msg));
                 return null;
             }
-            Object body = jsonObject.get(BODY);
-            BaseDataBody dataBody = JSONObject.parseObject(JSON.toJSONString(body), baseDataBody.getClass());
+            BaseDataBody dataBody =null;
+            if (!baseDataBody.isFlag()){
+                Object body = jsonObject.get(BODY);
+                dataBody = JSONObject.parseObject(JSON.toJSONString(body), baseDataBody.getClass());
+            }
             dataOutside.setHeader(dataHeader);
             dataOutside.setBaseDataBody(dataBody);
         } catch (Exception e) {
             log.error("数据转换失败：{}", JSON.toJSONString(msg));
             throw new RuntimeException(e.getMessage());
         }
-        BaseFacade baseFacade = BaseFacade.loadFacade(dataOutside.getHeader().getDevType(), dataOutside.getHeader().getOpType());
+        BaseFacade baseFacade = BaseFacade.loadFacade(dataOutside.getHeader().getOpType());
         if (null == baseFacade) {
             log.error("策略获取失败，原始数据对象：{}", JSON.toJSONString(dataOutside));
             return null;
         }
         return baseFacade.handle(ctx, dataOutside);
-    }*/
+    }
 
-    public static ApiResult routeAndHandle(ChannelHandlerContext ctx, String msg) {
-       /* JSONObject jsonObject = JSONObject.parseObject(msg);
+    /*public static ApiResult routeAndHandle(ChannelHandlerContext ctx, String msg) {
+       *//* JSONObject jsonObject = JSONObject.parseObject(msg);
         Object body = jsonObject.get(BODY);
         BaseDTO baseDTO = JSONObject.parseObject(JSON.toJSONString(body), BaseDTO.class);
         PushService pushService = SpringUtil.getBean(PushService.class);
-        pushService.pushMsgToOne(baseDTO.getUserId()+"","aaaa");*/
+        pushService.pushMsgToOne(baseDTO.getUserId()+"","aaaa");*//*
         return ApiResult.SUCCESS;
-    }
+    }*/
 
 
 }

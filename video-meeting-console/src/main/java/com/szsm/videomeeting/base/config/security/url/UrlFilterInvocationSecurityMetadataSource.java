@@ -47,7 +47,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         // 获取当前请求url
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        // TODO 忽略url请放在此处进行过滤放行
+        // TODO 忽略菜单url请放在此处进行过滤放行
         if ("/login".equals(requestUrl)
                 || requestUrl.contains("/person/person")
                 || requestUrl.contains("/push/pushOne")

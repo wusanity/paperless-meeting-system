@@ -64,7 +64,12 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
         try {
             stopWatch.start();
             // 记录请求的消息体
-            logRequestBody(wrappedRequest);
+            String url = logRequestBody(wrappedRequest);
+            //todo:配置登录不需要验证的路径
+            if (url.contains("/person/getList")) {
+                filterChain.doFilter(wrappedRequest, wrappedResponse);
+                return ;
+            }
 
 //            SecurityContext context = SecurityContextHolder.getContext();
 //            if (context.getAuthentication() != null && context.getAuthentication().isAuthenticated()) {
@@ -122,7 +127,7 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("-------------------------------- 请求url: " + url + " --------------------------------");
                 Constants.URL_MAPPING_MAP.put(url, url);
                 log.info("`{}` 接收到的参数: {}",url , bodyJson);
-                return bodyJson;
+                return url;
             } catch (Exception e) {
                 e.printStackTrace();
             }
