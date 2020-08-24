@@ -53,7 +53,10 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
                 || requestUrl.contains("/push/pushOne")
                 || requestUrl.contains("/push/pushAll")
                 || requestUrl.contains("/person/getList")
-                || requestUrl.contains("/file/info")) {
+                || requestUrl.contains("/file/info")
+                || requestUrl.contains("/meeting")
+                || requestUrl.contains("/meetingPerson")
+                || requestUrl.contains("/agenda")) {
             return null;
         }
 
@@ -63,9 +66,9 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
             // 获取该url所对应的权限
             if (requestUrl.equals(permission.getUrl())) {
 //                List<RoleMenu> permissions = roleMenuMapper.selectList(new EntityWrapper<RoleMenu>().eq("menu_id", permission.getId()));
-                List<RoleMenu> permissions = roleMenuMapper.selectList(new QueryWrapper<RoleMenu>().lambda().eq(RoleMenu::getMenuId,permission.getId()));
+                List<RoleMenu> permissions = roleMenuMapper.selectList(new QueryWrapper<RoleMenu>().lambda().eq(RoleMenu::getMenuId, permission.getId()));
                 List<String> roles = new LinkedList<>();
-                if (!CollectionUtils.isEmpty(permissions)){
+                if (!CollectionUtils.isEmpty(permissions)) {
                     Integer roleId = permissions.get(0).getRoleId();
                     Role role = roleMapper.selectById(roleId);
                     roles.add(role.getCode());

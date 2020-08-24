@@ -20,6 +20,7 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public Page<Person> getList(Page<Person> page, PersonDTO person) {
 //        throw new MyException(PersonErrorEnums.PASSWORD_ERROR);
+
         return page.setRecords(userMapper.getList(page,person));
     }
 }
