@@ -17,7 +17,7 @@ public class HeartBeatImpl implements BaseFacade {
     @Override
     public ApiResult handle(ChannelHandlerContext ctx, DataOutside dataOutside) {
         Map<String ,Object> map = new HashMap<>();
-        map.put("rsType",dataOutside.getHeader().getOpType());
+        map.put("resType",0);
         String rsp = JSON.toJSONString(map);
         ctx.channel().writeAndFlush(Unpooled.copiedBuffer(rsp.getBytes()));
         return ApiResult.SUCCESS;

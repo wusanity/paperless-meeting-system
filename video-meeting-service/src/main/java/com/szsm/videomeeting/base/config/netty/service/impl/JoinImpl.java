@@ -1,16 +1,10 @@
 package com.szsm.videomeeting.base.config.netty.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.szsm.videomeeting.base.config.netty.core.NettyConfig;
-import com.szsm.videomeeting.base.config.netty.dto.BaseDTO;
-import com.szsm.videomeeting.base.config.netty.dto.BaseDataBody;
-import com.szsm.videomeeting.base.config.netty.dto.DataOutside;
-import com.szsm.videomeeting.base.config.netty.dto.ResponseContext;
+import com.szsm.videomeeting.base.config.netty.dto.*;
 import com.szsm.videomeeting.base.config.netty.service.BaseFacade;
 import com.szsm.videomeeting.base.context.ApiResult;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Service;
 
@@ -27,20 +21,19 @@ public class JoinImpl implements BaseFacade {
             NettyConfig.getUserMeetingMap().put(baseDTO.getUserId(), baseDTO.getMeetingNo());
             NettyConfig.getUserChannelMap().put(baseDTO.getUserId(), ctx.channel());
             ConcurrentHashMap<Long, String> userMeetingMap = NettyConfig.getUserMeetingMap();
-            ResponseContext context = new ResponseContext();
-
 
             for (Long userId : userMeetingMap.keySet()) {
                 if (userMeetingMap.get(userId).equals(baseDTO.getMeetingNo())) {
 //                    pushService.pushMsgToOne(baseDTO.getUserId(),"lalala~~~~~");
                     Channel channel = NettyConfig.getUserChannelMap().get(userId);
+                    FileRequiredDTO fileRequiredDTO = FileRequiredDTO.builder().build();
                     if (channel.id().equals(ctx.channel().id())){
                         // 如果是当前这个channel
-                        context.setFileMessage(true);
-                        context.setUrl(new ArrayList<>());
+                        fileRequiredDTO.setUrl(new ArrayList<>());
                     }
-                    context.setBaseMessage(true);
-                    NettyConfig.push(channel,context);
+                    BaseRequiredDTO baseRequiredDTO = BaseRequiredDTO.builder().build();
+                    baseRequiredDTO.setMeetingNo("111");
+                    NettyConfig.push(channel,baseRequiredDTO);
                     try {
                         // 发送文件请求每个间隔延迟1s
                         Thread.sleep(1000);
@@ -54,7 +47,7 @@ public class JoinImpl implements BaseFacade {
     }
 
 
-    public void pushBaseMessage(Long userId,String meetingNo){
+/*    public void pushBaseMessage(Long userId,String meetingNo){
         if (!meetingNo.equals(NettyConfig.getUserMeetingMap().get(userId))){
             return;
         }
@@ -75,7 +68,7 @@ public class JoinImpl implements BaseFacade {
         context.setFileMessage(true);
         //todo:根据会议号查询文件
         Channel channel = NettyConfig.getUserChannelMap().get(userId);
-    }
+    }*/
 
 
 }

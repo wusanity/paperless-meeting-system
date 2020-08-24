@@ -16,27 +16,9 @@ import java.util.List;
 public class ResponseContext {
 
     /**
-     * 回复心跳包
+     * 回复类型：0回复心跳包，1回复要查询基础数据，2回复要下载文件
      */
-    Boolean heartBeat;
-    /**
-     * 查询基础信息
-     */
-    Boolean baseMessage;
-    /**
-     * 会议号
-     */
-    String meetingNo;
-
-    /**
-     * 查询文件信息
-     */
-    Boolean fileMessage;
-
-    /**
-     * 文件路径
-     */
-    List<String> url;
+    private Integer resType;
 
 
 }
