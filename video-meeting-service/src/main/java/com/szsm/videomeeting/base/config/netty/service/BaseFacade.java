@@ -37,7 +37,7 @@ public interface  BaseFacade {
         switch (operateType) {
             case DataContext.HEART_BEAT_PACKAGE:
                 return SpringUtil.getBean(HeartBeatImpl.class);
-            case DataContext.CAR_LOC_PACKAGE:
+            case DataContext.JOIN_PACKAGE:
                 return SpringUtil.getBean(HeartBeatImpl.class);
             default:
                 return null;

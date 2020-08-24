@@ -23,15 +23,20 @@ public class ResponseContext {
      * 查询基础信息
      */
     Boolean baseMessage;
+    /**
+     * 会议号
+     */
+    String meetingNo;
 
     /**
-     * 下载文件信息
+     * 查询文件信息
      */
     Boolean fileMessage;
 
     /**
      * 文件路径
      */
-    List<String> fileName;
+    List<String> url;
+
 
 }

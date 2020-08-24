@@ -6,7 +6,6 @@ import com.szsm.videomeeting.base.config.netty.dto.BaseDTO;
 import com.szsm.videomeeting.base.config.netty.dto.BaseDataBody;
 import com.szsm.videomeeting.base.config.netty.dto.DataOutside;
 import com.szsm.videomeeting.base.config.netty.dto.ResponseContext;
-import com.szsm.videomeeting.base.config.netty.router.RouterContext;
 import com.szsm.videomeeting.base.config.netty.service.BaseFacade;
 import com.szsm.videomeeting.base.context.ApiResult;
 import io.netty.buffer.Unpooled;
@@ -16,8 +15,6 @@ import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service("joinImpl")
@@ -29,41 +26,56 @@ public class JoinImpl implements BaseFacade {
             BaseDTO baseDTO = (BaseDTO) baseDataBody;
             NettyConfig.getUserMeetingMap().put(baseDTO.getUserId(), baseDTO.getMeetingNo());
             NettyConfig.getUserChannelMap().put(baseDTO.getUserId(), ctx.channel());
-            ConcurrentHashMap<Integer, String> userMeetingMap = NettyConfig.getUserMeetingMap();
+            ConcurrentHashMap<Long, String> userMeetingMap = NettyConfig.getUserMeetingMap();
             ResponseContext context = new ResponseContext();
 
 
-            for (Integer userId : userMeetingMap.keySet()) {
+            for (Long userId : userMeetingMap.keySet()) {
                 if (userMeetingMap.get(userId).equals(baseDTO.getMeetingNo())) {
 //                    pushService.pushMsgToOne(baseDTO.getUserId(),"lalala~~~~~");
                     Channel channel = NettyConfig.getUserChannelMap().get(userId);
                     if (channel.id().equals(ctx.channel().id())){
                         // 如果是当前这个channel
                         context.setFileMessage(true);
-                        context.setFileName(new ArrayList<>());
+                        context.setUrl(new ArrayList<>());
                     }
                     context.setBaseMessage(true);
-                    ApiResult result = ApiResult.ok(context);
-                    String rsp = JSON.toJSONString(result);
-                    boolean success = false;
-                    int time = 3;
-                    while (!success) {
-                        // 重试三次
-                        ChannelFuture channelFuture = channel.writeAndFlush(Unpooled.copiedBuffer(rsp.getBytes()));
-                        if (channelFuture.isSuccess() || time <= 0) {
-                            success = true;
-                        } else {
-                            time--;
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                    NettyConfig.push(channel,context);
+                    try {
+                        // 发送文件请求每个间隔延迟1s
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
         }
         return ApiResult.SUCCESS;
     }
+
+
+    public void pushBaseMessage(Long userId,String meetingNo){
+        if (!meetingNo.equals(NettyConfig.getUserMeetingMap().get(userId))){
+            return;
+        }
+        ResponseContext context = new ResponseContext();
+        context.setBaseMessage(true);
+        context.setMeetingNo(meetingNo);
+        Channel channel = NettyConfig.getUserChannelMap().get(userId);
+        ApiResult result = ApiResult.ok(context);
+
+
+    }
+
+    public void pushFileMessage(Long userId,String meetingNo){
+        if (!meetingNo.equals(NettyConfig.getUserMeetingMap().get(userId))){
+            return;
+        }
+        ResponseContext context = new ResponseContext();
+        context.setFileMessage(true);
+        //todo:根据会议号查询文件
+        Channel channel = NettyConfig.getUserChannelMap().get(userId);
+    }
+
+
 }
