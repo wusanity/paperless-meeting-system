@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @Author zhanglei
  * @Date Create at 2020/8/21 16:24
@@ -24,14 +26,17 @@ public class MeetingPersonDTO  {
     /**
      * 参会人姓名
      */
+    @NotBlank
     private String name;
     /**
      * 参会人职位
      */
+    @NotBlank
     private String position;
     /**
      * 参会人设备
      */
+    @NotBlank
     private String equipment;
 
     /**

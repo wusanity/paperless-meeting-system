@@ -2,6 +2,8 @@ package com.szsm.videomeeting.model.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -24,15 +26,18 @@ public class MeetingAgendaDTO {
     /**
      * 议程开始时间
      */
+    @NotNull
     private Date beginTime;
     /**
      * 议程结束时间
      */
+    @NotNull
     private Date endTime;
 
     /**
      * 议程内容
      */
+    @NotBlank
     private String detail;
 
     /**
