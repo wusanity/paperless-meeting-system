@@ -144,7 +144,7 @@ public class MeetingController {
     @ResponseBody
     public ApiResult updateMeeting(@Validated(MeetingInfoDTO.class) MeetingInfoDTO meetingInfoDTO,@Validated(MeetingAgendaDTO.class) List<MeetingAgendaDTO> agendaDTOList,@Validated(MeetingPersonDTO.class) List<MeetingPersonDTO> personDTOList) {
         meetingBaseService.updateMeeting(meetingInfoDTO,agendaDTOList,personDTOList);
-        return ApiResult.ok();
+        return ApiResult.ok("会议更新成功！");
     }
 
 
