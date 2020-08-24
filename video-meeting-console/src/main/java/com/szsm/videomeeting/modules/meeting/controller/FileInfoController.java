@@ -4,8 +4,6 @@ package com.szsm.videomeeting.modules.meeting.controller;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.exception.MyException;
 import com.szsm.videomeeting.model.dto.FileUploadDTO;
-import com.szsm.videomeeting.model.entity.FileInfo;
-import com.szsm.videomeeting.modules.kk.enums.PersonErrorEnums;
 import com.szsm.videomeeting.modules.meeting.service.FileInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *文件表controller
@@ -37,7 +35,7 @@ public class FileInfoController {
      * @param fileUploadDTO 文件上传DTO
      * @return
      */
-    @PostMapping(value = "/upload")
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult upload(@RequestParam("file") MultipartFile file, FileUploadDTO fileUploadDTO) throws MyException {
         return fileInfoService.upload(file, fileUploadDTO);
@@ -48,9 +46,33 @@ public class FileInfoController {
      * @param id 文件主键id
      * @return
      */
-    @GetMapping(value = "/delete")
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult delete(@RequestParam("id")Long id) {
         return fileInfoService.delete(id);
+    }
+
+    /**
+     * 文件下载
+     * @param modelFileName 模板文件名称
+     * @param response 响应
+     * @param id 文件主键
+     * @return
+     */
+    @RequestMapping(value = "/fileDownload", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult fileDownload(String modelFileName, HttpServletResponse response, Long id) {
+        return fileInfoService.fileDownload(modelFileName, response, id);
+    }
+
+    /**
+     * excel导入
+     * @param file 上传的文件
+     * @return
+     */
+    @RequestMapping(value = "/excelImport", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult excelImport(@RequestParam("file") MultipartFile file) {
+        return fileInfoService.excelImport(file);
     }
 }
