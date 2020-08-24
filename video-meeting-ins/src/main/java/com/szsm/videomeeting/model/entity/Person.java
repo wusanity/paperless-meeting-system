@@ -38,7 +38,7 @@ public class Person extends BaseEntity implements Serializable{
     @TableField(value = "update_time", fill = FieldFill.INSERT)
     private Date updateTime;
 
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    @TableField(value = "create_by")
     private Long createBy;
 
     @TableField(value = "deleted")

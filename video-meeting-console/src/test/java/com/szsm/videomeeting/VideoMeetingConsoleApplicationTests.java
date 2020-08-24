@@ -1,20 +1,20 @@
 package com.szsm.videomeeting;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.szsm.videomeeting.model.entity.Person;
 import com.szsm.videomeeting.modules.kk.mapper.PersonMapper;
 import com.szsm.videomeeting.modules.kk.service.PersonService;
 import com.szsm.videomeeting.modules.system.mapper.RoleMapper;
 import com.szsm.videomeeting.modules.system.mapper.UserRoleMapper;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class VideoMeetingConsoleApplicationTests {
+public class VideoMeetingConsoleApplicationTests {
 
 	@Autowired
 	private PersonMapper personMapper;
@@ -46,9 +46,11 @@ class VideoMeetingConsoleApplicationTests {
 		Person person1 = Person.builder().name("lisi").age(34).build();
 //		Person person2 = Person.builder().name("wangwu").build();
 //		Person person3 = Person.builder().name("zhaoliu").build();
-		List<Person> list = new ArrayList<>();
-		list.add(person);
-		list.add(person1);
+//		List<Person> list = new ArrayList<>();
+		boolean save = personService.save(person);
+		System.out.println(save);
+//		list.add(person);
+//		list.add(person1);
 //		list.add(person2);
 //		list.add(person3);
 //		boolean b = personService.saveBatch(list);
@@ -86,9 +88,9 @@ class VideoMeetingConsoleApplicationTests {
 //		boolean lisi = personService.update(updateWrapper);
 //		System.out.println(lisi);
 		//
-		boolean update = personService.update(
-				Person.builder().name("lisi").age(34).build()
-				, new UpdateWrapper<Person>().lambda().eq(Person::getId,29L));
+//		boolean update = personService.update(
+//				Person.builder().name("lisi").age(34).build()
+//				, new UpdateWrapper<Person>().lambda().eq(Person::getId,29L));
 //		System.out.println(update);
 
 		/**
@@ -105,9 +107,9 @@ class VideoMeetingConsoleApplicationTests {
 
 		Page page1 = personService.page(page,new QueryWrapper<Person>().lambda().eq(Person::getAge,34).eq(Person::getName,"zhangsan"));
 		System.out.println(page1);*/
-		Person wangwu1 = Person.builder().name("wangwu").build();
-		int wangwu = personMapper.insert(wangwu1);
-		System.out.println(wangwu1.getId());
+//		Person wangwu1 = Person.builder().name("wangwu").build();
+//		int wangwu = personMapper.insert(wangwu1);
+//		System.out.println(wangwu1.getId());
 
 	}
 

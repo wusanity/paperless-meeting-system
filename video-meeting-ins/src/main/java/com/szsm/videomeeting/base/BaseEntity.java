@@ -30,7 +30,7 @@ public abstract class BaseEntity<T extends Model> extends Model {
     /**
      * 创建人
      */
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
+    @TableField(value = "create_by")
     private Long createBy;
     /**
      * 修改时间
@@ -42,7 +42,7 @@ public abstract class BaseEntity<T extends Model> extends Model {
     /**
      * 修改人
      */
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_by")
     private Long updateBy;
 
     /**
