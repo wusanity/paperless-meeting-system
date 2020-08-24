@@ -10,7 +10,7 @@
         <result column="email" property="email" />
     </resultMap>
 
-    <select id="getList" resultMap="BaseResultMap">
+      <select id="getList" resultMap="BaseResultMap">
         SELECT
         *
         FROM person
@@ -23,10 +23,10 @@
             AND	name LIKE '%${filter.name}%'
         </if>
         <if test="filter.age!=null and filter.age!=''">
-            AND	name = #{filter.account}
+            AND	age = #{filter.age}
         </if>
         <if test="filter.email!=null and filter.email!=''">
-            AND	name = #{filter.account}
+            AND	email = #{filter.email}
         </if>
         ORDER BY id DESC
     </select>

@@ -26,9 +26,9 @@ public class PersonController {
     @ResponseBody
     public ApiResult getList(PersonDTO personDTO){
         log.error("111:{},{}","zhangsan","lisi");
-        if (personDTO.getName() == null){
+        /*if (personDTO.getName() == null){
             return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
-        }
+        }*/
         Page<Person> page = new Page<>(personDTO.getPage(), personDTO.getLimit());
         personService.getList(page,personDTO);
         return ApiResult.successTable(page);

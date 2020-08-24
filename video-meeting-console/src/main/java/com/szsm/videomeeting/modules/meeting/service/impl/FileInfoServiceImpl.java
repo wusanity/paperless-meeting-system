@@ -1,16 +1,17 @@
 package com.szsm.videomeeting.modules.meeting.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.szsm.videomeeting.base.constant.ApiConstant;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.exception.MyException;
 import com.szsm.videomeeting.base.util.ExcelUtil;
 import com.szsm.videomeeting.model.dto.FileUploadDTO;
 import com.szsm.videomeeting.model.entity.FileInfo;
+import com.szsm.videomeeting.model.excel.MeetingMembersExcel;
 import com.szsm.videomeeting.modules.kk.enums.PersonErrorEnums;
 import com.szsm.videomeeting.modules.meeting.constant.MeetingConstant;
 import com.szsm.videomeeting.modules.meeting.mapper.FileInfoMapper;
 import com.szsm.videomeeting.modules.meeting.service.FileInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -24,6 +25,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -204,8 +206,41 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
             if (inputStream != null) {
                 //调用excel解析工具类，对文件进行解析并返回list
                 List<Object> excelList = ExcelUtil.readLessThan1000Row("", inputStream);
+                List<MeetingMembersExcel> resultList = new ArrayList<>();
+                //去除表头
+                excelList.remove(0);
+                //将解析返回的数据转成实体bean
                 if(CollectionUtils.isNotEmpty(excelList)) {
-                    apiResult.setData(excelList);
+                    for(Object obj:excelList) {
+                        MeetingMembersExcel meetingMembersExcel = new MeetingMembersExcel();
+                        List<Object> oneRow = (List<Object>) obj;
+                        for(int i = 0;i<oneRow.size();i++) {
+                            String field = (String) oneRow.get(i);
+                            switch (i) {
+                                case 0:
+                                    meetingMembersExcel.setIndex(Integer.parseInt(field));
+                                    break;
+                                case 1:
+                                    meetingMembersExcel.setName(field);
+                                    break;
+                                case 2:
+                                    meetingMembersExcel.setTittle(field);
+                                    break;
+                                case 3:
+                                    meetingMembersExcel.setEquipment(field);
+                                    break;
+                                case 4:
+                                    meetingMembersExcel.setEquipmentStatus(field);
+                                    break;
+                                case 5:
+                                    meetingMembersExcel.setAttachedEquipment(field);
+                                    break;
+                                    default :
+                            }
+                        }
+                        resultList.add(meetingMembersExcel);
+                    }
+                    apiResult.setData(resultList);
                 }
             }
         } catch (IOException e) {
