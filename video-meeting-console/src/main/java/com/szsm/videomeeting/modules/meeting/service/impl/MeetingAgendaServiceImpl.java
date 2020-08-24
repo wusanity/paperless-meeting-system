@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.szsm.videomeeting.base.BaseEntity;
 import com.szsm.videomeeting.model.dto.MeetingAgendaDTO;
 import com.szsm.videomeeting.model.entity.MeetingAgenda;
 import com.szsm.videomeeting.modules.meeting.mapper.MeetingAgendaMapper;
@@ -26,6 +27,11 @@ public class MeetingAgendaServiceImpl extends ServiceImpl<MeetingAgendaMapper, M
     private MeetingAgendaMapper meetingAgendaMapper;
 
 
+    /**
+     * 通过会议号获取会议议程信息（未删除的）
+     * @param meetingNo
+     * @return
+     */
     @Override
     public List<MeetingAgendaDTO> getByMeetingNo(String meetingNo) {
         List<MeetingAgenda> meetingAgendas =

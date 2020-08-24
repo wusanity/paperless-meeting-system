@@ -27,6 +27,11 @@ public class MeetingAgendaController {
     @Autowired
     private MeetingAgendaService meetingAgendaService;
 
+    /**
+     * 根据会议号获取会议议程信息
+     * @param meetingNo
+     * @return
+     */
     @RequestMapping("/getByMeetingNo")
     @ResponseBody
     public ApiResult getByMeetingNo(String meetingNo){

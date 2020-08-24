@@ -28,6 +28,11 @@ public class MeetingPersonController {
     @Autowired
     private MeetingPersonService meetingPersonService;
 
+    /**
+     * 根据会议号获取参会人员信息
+     * @param meetingNo
+     * @return
+     */
     @RequestMapping("/getByMeetingNo")
     @ResponseBody
     public ApiResult getByMeetingNo(String meetingNo){

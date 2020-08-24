@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.szsm.videomeeting.base.BaseEntity;
 import com.szsm.videomeeting.model.dto.MeetingAgendaDTO;
 import com.szsm.videomeeting.model.dto.MeetingDetailsDTO;
 import com.szsm.videomeeting.model.dto.MeetingInfoDTO;
@@ -43,9 +44,15 @@ public class MeetingInfoServiceImpl extends ServiceImpl<MeetingInfoMapper, Meeti
         return page.setRecords(meetingInfoMapper.getList(page, meetingInfoDTO));
     }
 
+    /**
+     * 通过会议号获取会议详细信息，包括会议基本信息、参会人信息和会议议程信息
+     *
+     * @param meetingNo
+     * @return
+     */
     @Override
     public MeetingDetailsDTO getMeetingDetails(String meetingNo) {
-
+        // 获取会议基本信息
         MeetingInfo meetingInfo = meetingInfoMapper.selectOne(new QueryWrapper<MeetingInfo>().lambda()
                 .eq(MeetingInfo::getMeetingNo, meetingNo));
 
@@ -55,15 +62,15 @@ public class MeetingInfoServiceImpl extends ServiceImpl<MeetingInfoMapper, Meeti
         MeetingInfoDTO meetingInfoDTO = new MeetingInfoDTO();
         BeanUtils.copyProperties(meetingInfo, meetingInfoDTO);
 
-
+        // 获取参会人信息
         List<MeetingPerson> meetingPeople = meetingPersonMapper.selectList(new QueryWrapper<MeetingPerson>().lambda()
                 .eq(MeetingPerson::getMeetingNo, meetingNo));
 
         String jsonString = JSONArray.toJSONString(meetingPeople);
-        List<MeetingPersonDTO> meetingPersonDTOList = JSON.parseArray(jsonString,MeetingPersonDTO.class);
+        List<MeetingPersonDTO> meetingPersonDTOList = JSON.parseArray(jsonString, MeetingPersonDTO.class);
 
 
-
+        // 获取会议议程信息
         List<MeetingAgenda> meetingAgendas = meetingAgendaMapper.selectList(new QueryWrapper<MeetingAgenda>().lambda()
                 .eq(MeetingAgenda::getMeetingNo, meetingNo));
 
@@ -81,6 +88,7 @@ public class MeetingInfoServiceImpl extends ServiceImpl<MeetingInfoMapper, Meeti
 
     /**
      * 通过会议号获取会议基本信息
+     *
      * @param meetingNo
      * @return
      */

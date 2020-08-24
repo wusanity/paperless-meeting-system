@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.szsm.videomeeting.base.BaseEntity;
 import com.szsm.videomeeting.model.dto.MeetingPersonDTO;
 import com.szsm.videomeeting.model.entity.MeetingPerson;
 import com.szsm.videomeeting.modules.meeting.mapper.MeetingPersonMapper;
@@ -25,6 +26,11 @@ public class MeetingPersonServiceImpl extends ServiceImpl<MeetingPersonMapper, M
     @Autowired
     private MeetingPersonMapper meetingPersonMapper;
 
+    /**
+     * 通过会议号获取参会人信息（未删除）
+     * @param meetingNo
+     * @return
+     */
     @Override
     public List<MeetingPersonDTO> getByMeetingNo(String meetingNo) {
         List<MeetingPerson> meetingPeople = meetingPersonMapper.selectList(new QueryWrapper<MeetingPerson>().lambda().eq(MeetingPerson::getMeetingNo,
