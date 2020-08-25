@@ -1,6 +1,8 @@
 package com.szsm.videomeeting.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -44,6 +46,16 @@ public class MeetingAgendaDTO {
      * 文件路径
      */
     private String url;
+
+    /**
+     * 更新人
+     */
+    private Long updateBy;
+
+    /**
+     * 创建人
+     */
+    private Long createBy;
 
 
 }

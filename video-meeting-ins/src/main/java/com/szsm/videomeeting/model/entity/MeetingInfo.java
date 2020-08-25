@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -71,6 +72,7 @@ public class MeetingInfo extends BaseEntity<MeetingInfo> {
      */
     @TableField(value = "on_off")
     private Integer onOff;
+
 
 
 }

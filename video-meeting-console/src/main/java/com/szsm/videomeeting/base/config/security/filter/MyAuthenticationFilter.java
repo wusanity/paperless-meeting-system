@@ -66,7 +66,11 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
             // 记录请求的消息体
             String url = logRequestBody(wrappedRequest);
             //todo:配置登录不需要验证的路径
-            if (url.contains("/person/getList")) {
+            if (url.contains("/person/getList")
+            || url.contains("/meeting/addMeeting" )
+            || url.contains("meeting/removeMeeting")
+            || url.contains("meeting/onOffMeeting")
+            || url.contains("meeting/editMeeting")){
                 filterChain.doFilter(wrappedRequest, wrappedResponse);
                 return ;
             }

@@ -43,4 +43,14 @@ public class MeetingPersonDTO  {
      * 设备状态 ：0离线，1在线
      */
     private Integer state;
+
+    /**
+     * 更新人
+     */
+    private Long updateBy;
+
+    /**
+     * 创建人
+     */
+    private Long createBy;
 }

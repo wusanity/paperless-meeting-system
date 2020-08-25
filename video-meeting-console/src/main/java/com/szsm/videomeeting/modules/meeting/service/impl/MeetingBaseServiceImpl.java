@@ -15,12 +15,15 @@ import com.szsm.videomeeting.modules.meeting.service.MeetingInfoService;
 import com.szsm.videomeeting.modules.meeting.service.MeetingPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 @Service
+@Transactional
 public class MeetingBaseServiceImpl implements MeetingBaseService {
     @Autowired
     private MeetingInfoService meetingInfoService;
