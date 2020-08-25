@@ -1,5 +1,8 @@
 package com.szsm.videomeeting.model.dto;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.szsm.videomeeting.base.BasePageQuery;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,11 +41,15 @@ public class MeetingInfoDTO extends BasePageQuery {
      * 会议开始时间
      */
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date beginTime;
     /**
      * 会议结束时间
      */
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
     /**
      * 会议号
@@ -63,4 +70,14 @@ public class MeetingInfoDTO extends BasePageQuery {
      * 查询：结束时间
      */
     private Date searchTimeEnd;
+
+    /**
+     * 更新人
+     */
+    private Long updateBy;
+
+    /**
+     * 创建人
+     */
+    private Long createBy;
 }

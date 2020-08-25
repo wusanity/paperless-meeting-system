@@ -35,7 +35,6 @@ public abstract class BaseEntity<T extends Model> extends Model {
     /**
      * 修改时间
      */
-    @ApiModelProperty(value = "修改时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
 //    @Future(message = "修改时间必须是将来时间")
     private Date updateTime;

@@ -1,5 +1,6 @@
 package com.szsm.videomeeting;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.szsm.videomeeting.model.entity.Person;
 import com.szsm.videomeeting.modules.kk.mapper.PersonMapper;
 import com.szsm.videomeeting.modules.kk.service.PersonService;

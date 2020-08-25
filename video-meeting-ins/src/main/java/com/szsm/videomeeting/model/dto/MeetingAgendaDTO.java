@@ -1,6 +1,8 @@
 package com.szsm.videomeeting.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,11 +29,15 @@ public class MeetingAgendaDTO {
      * 议程开始时间
      */
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date beginTime;
     /**
      * 议程结束时间
      */
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /**
@@ -44,6 +50,16 @@ public class MeetingAgendaDTO {
      * 文件路径
      */
     private String url;
+
+    /**
+     * 更新人
+     */
+    private Long updateBy;
+
+    /**
+     * 创建人
+     */
+    private Long createBy;
 
 
 }
