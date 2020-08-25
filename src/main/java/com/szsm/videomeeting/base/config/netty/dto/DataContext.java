@@ -20,15 +20,10 @@ public class DataContext {
          * 新连接
          */
         public static final int JOIN_PACKAGE = 11;
-
         /**
-         * 新增会议
-         */
-        public static final int MEETING_ADD = 21;
-        /**
-        * 编辑会议
+        * 新增编辑会议
         */
-        public static final int MEETING_UPDATE = 22;
+        public static final int ADD_UPDATE_PACKAGE = 21;
 
 
     /**

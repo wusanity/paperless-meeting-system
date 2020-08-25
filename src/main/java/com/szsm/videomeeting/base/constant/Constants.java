@@ -45,4 +45,14 @@ public class Constants {
      */
     public static final String ROLE_LOGIN = "role_login";
 
+    /**
+     * 会议状态：0未开始，1启动，2结束
+     */
+    public static final Integer OFF = 2;
+
+    /**
+     * 会议状态：0未删除，1已删除
+     */
+    public static final Integer DELETED = 1;
+
 }

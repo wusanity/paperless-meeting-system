@@ -60,14 +60,16 @@ public final class RouterContext {
         return baseFacade.handle(ctx, dataOutside);
     }
 
-    /*public static ApiResult routeAndHandle(ChannelHandlerContext ctx, String msg) {
-       *//* JSONObject jsonObject = JSONObject.parseObject(msg);
-        Object body = jsonObject.get(BODY);
-        BaseDTO baseDTO = JSONObject.parseObject(JSON.toJSONString(body), BaseDTO.class);
-        PushService pushService = SpringUtil.getBean(PushService.class);
-        pushService.pushMsgToOne(baseDTO.getUserId()+"","aaaa");*//*
-        return ApiResult.SUCCESS;
-    }*/
+
+    public static ApiResult routeAndHandle(DataOutside dataOutside) {
+        BaseFacade baseFacade = BaseFacade.loadFacade(dataOutside.getHeader().getOpType());
+        if (null == baseFacade) {
+            log.error("策略获取失败，原始数据对象：{}", JSON.toJSONString(dataOutside));
+            return null;
+        }
+        return baseFacade.handle(null, dataOutside);
+    }
+
 
 
 }

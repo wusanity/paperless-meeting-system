@@ -3,6 +3,8 @@ package com.szsm.videomeeting.base.config.netty.service;
 import com.szsm.videomeeting.base.config.netty.dto.DataContext;
 import com.szsm.videomeeting.base.config.netty.dto.DataOutside;
 import com.szsm.videomeeting.base.config.netty.service.impl.HeartBeatImpl;
+import com.szsm.videomeeting.base.config.netty.service.impl.JoinImpl;
+import com.szsm.videomeeting.base.config.netty.service.impl.MeetingAddUpdateImpl;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.util.SpringUtil;
 import io.netty.channel.ChannelHandlerContext;
@@ -38,7 +40,9 @@ public interface  BaseFacade {
             case DataContext.HEART_BEAT_PACKAGE:
                 return SpringUtil.getBean(HeartBeatImpl.class);
             case DataContext.JOIN_PACKAGE:
-                return SpringUtil.getBean(HeartBeatImpl.class);
+                return SpringUtil.getBean(JoinImpl.class);
+            case DataContext.ADD_UPDATE_PACKAGE:
+                return SpringUtil.getBean(MeetingAddUpdateImpl.class);
             default:
                 return null;
         }

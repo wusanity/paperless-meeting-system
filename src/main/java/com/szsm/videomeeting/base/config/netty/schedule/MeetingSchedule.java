@@ -1,10 +1,29 @@
 package com.szsm.videomeeting.base.config.netty.schedule;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.szsm.videomeeting.base.config.netty.core.NettyConfig;
+import com.szsm.videomeeting.base.config.netty.dto.BaseRequiredDTO;
+import com.szsm.videomeeting.base.config.netty.dto.FileRequiredDTO;
+import com.szsm.videomeeting.base.constant.Constants;
+import com.szsm.videomeeting.modules.meeting.constant.MeetingConstant;
+import com.szsm.videomeeting.modules.meeting.mapper.MeetingInfoMapper;
+import com.szsm.videomeeting.modules.meeting.model.entity.MeetingInfo;
+import com.szsm.videomeeting.modules.meeting.service.MeetingInfoService;
+import io.netty.channel.Channel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Component
 public class MeetingSchedule {
+
+    @Autowired
+    private MeetingInfoMapper meetingInfoMapper;
 
 
     /**
@@ -12,7 +31,23 @@ public class MeetingSchedule {
      */
     @Scheduled(cron = "0 */1 * * * ?")
     public void scheduleBaseMessage(){
-
+        MeetingInfo meetingInfo = MeetingInfo.builder().onOff(Constants.OFF).build();
+        meetingInfo.setDeleted(Constants.DELETED);
+        List<MeetingInfo> meetingInfoList = meetingInfoMapper.selectList(new QueryWrapper<MeetingInfo>()
+                .lambda()
+                .eq(MeetingInfo::getOnOff, meetingInfo.getOnOff())
+                .eq(MeetingInfo::getDeleted, meetingInfo.getDeleted()));
+        for (MeetingInfo info : meetingInfoList) {
+            ConcurrentHashMap<Long, String> userMeetingMap = NettyConfig.getUserMeetingMap();
+            for (Long userId : userMeetingMap.keySet()) {
+                if (userMeetingMap.get(userId).equals(info.getMeetingNo())) {
+                    Channel channel = NettyConfig.getUserChannelMap().get(userId);
+                    BaseRequiredDTO baseRequiredDTO = BaseRequiredDTO.builder().build();
+                    baseRequiredDTO.setMeetingNo(info.getMeetingNo());
+                    NettyConfig.push(channel,baseRequiredDTO);
+                }
+            }
+        }
 
 
     }
