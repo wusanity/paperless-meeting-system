@@ -31,7 +31,7 @@ public class MeetingInfoDTO extends BasePageQuery {
     /**
      * 会议主题
      */
-    @NotBlank
+    @NotBlank(message = "会议主题不能为空")
     private String topic;
     /**
      * 会议是否开启，状态：0未开始，1启动，2结束

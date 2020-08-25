@@ -51,7 +51,6 @@ public class MeetingController {
             throw new MyException(ApiConstant.Code.PARAMS_LACK_CODE,"会议号不能为空！");
         }
         MeetingDetailsDTO meetingDetailsDTO = meetingInfoService.getMeetingDetails(meetingNo);
-
         return ApiResult.ok(meetingDetailsDTO);
     }
 
@@ -79,7 +78,7 @@ public class MeetingController {
      */
     @RequestMapping(value = "/addMeeting",method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult addMeeting(@RequestBody @Validated({MeetingInfoDTO.class,MeetingAgendaDTO.class,MeetingPersonDTO.class})MeetingDTO meetingDTO) {
+    public ApiResult addMeeting(@RequestBody @Validated MeetingDTO meetingDTO) {
         meetingBaseService.addMeeting(meetingDTO.getMeetingInfoDTO(),meetingDTO.getAgendaDTOList(),meetingDTO.getPersonDTOList());
         return ApiResult.ok("添加会议成功！");
     }
@@ -89,7 +88,7 @@ public class MeetingController {
      * @param meetingInfoDTO
      * @return
      */
-    @RequestMapping(value = "/removeMeeting" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "/removeMeeting" , method = RequestMethod.POST)
     @ResponseBody
     public ApiResult removeMeetingByMeetingNo(MeetingInfoDTO meetingInfoDTO) {
         if (StringUtils.isEmpty(meetingInfoDTO.getMeetingNo())){
@@ -104,7 +103,7 @@ public class MeetingController {
      * @param meetingInfoDTO
      * @return
      */
-    @RequestMapping(value = "/onOffMeeting" ,method = RequestMethod.PUT)
+    @RequestMapping(value = "/onOffMeeting" ,method = RequestMethod.POST)
     @ResponseBody
     public ApiResult onOffMeeting(MeetingInfoDTO meetingInfoDTO) {
         log.info("canshu"+meetingInfoDTO.getOnOff());
@@ -133,7 +132,7 @@ public class MeetingController {
      * @param meetingDTO
      * @return
      */
-    @RequestMapping(value = "/editMeeting",method = RequestMethod.PUT)
+    @RequestMapping(value = "/editMeeting",method = RequestMethod.POST)
     @ResponseBody
     public ApiResult editMeeting(@RequestBody @Validated({MeetingInfoDTO.class,MeetingAgendaDTO.class,MeetingPersonDTO.class})MeetingDTO meetingDTO) {
         meetingBaseService.updateMeeting(meetingDTO.getMeetingInfoDTO(),meetingDTO.getAgendaDTOList(),meetingDTO.getPersonDTOList());
