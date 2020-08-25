@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.szsm.videomeeting.base.constant.ApiConstant;
 import com.szsm.videomeeting.base.context.ApiResult;
 import com.szsm.videomeeting.base.exception.MyException;
-import com.szsm.videomeeting.model.dto.MeetingAgendaDTO;
-import com.szsm.videomeeting.model.dto.MeetingDetailsDTO;
-import com.szsm.videomeeting.model.dto.MeetingInfoDTO;
-import com.szsm.videomeeting.model.dto.MeetingPersonDTO;
+import com.szsm.videomeeting.model.dto.*;
 import com.szsm.videomeeting.model.entity.MeetingInfo;
 import com.szsm.videomeeting.modules.meeting.service.MeetingBaseService;
 import com.szsm.videomeeting.modules.meeting.service.MeetingInfoService;
@@ -77,15 +74,13 @@ public class MeetingController {
 
     /**
      * 添加会议
-     * @param meetingInfoDTO
-     * @param agendaDTOList
-     * @param personDTOList
+     * @param meetingDTO
      * @return
      */
     @RequestMapping(value = "/addMeeting",method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult addMeeting( @RequestBody @Validated MeetingInfoDTO meetingInfoDTO,@RequestBody @Validated(MeetingAgendaDTO.class)  List<MeetingAgendaDTO> agendaDTOList,@RequestBody @Validated(MeetingPersonDTO.class) List<MeetingPersonDTO> personDTOList) {
-        meetingBaseService.addMeeting(meetingInfoDTO,agendaDTOList,personDTOList);
+    public ApiResult addMeeting(@RequestBody @Validated({MeetingInfoDTO.class,MeetingAgendaDTO.class,MeetingPersonDTO.class})MeetingDTO meetingDTO) {
+        meetingBaseService.addMeeting(meetingDTO.getMeetingInfoDTO(),meetingDTO.getAgendaDTOList(),meetingDTO.getPersonDTOList());
         return ApiResult.ok("添加会议成功！");
     }
 
@@ -135,15 +130,13 @@ public class MeetingController {
 
     /**
      * 编辑会议
-     * @param meetingInfoDTO
-     * @param agendaDTOList
-     * @param personDTOList
+     * @param meetingDTO
      * @return
      */
     @RequestMapping(value = "/editMeeting",method = RequestMethod.PUT)
     @ResponseBody
-    public ApiResult editMeeting(@Validated(MeetingInfoDTO.class) MeetingInfoDTO meetingInfoDTO,@Validated(MeetingAgendaDTO.class) List<MeetingAgendaDTO> agendaDTOList,@Validated(MeetingPersonDTO.class) List<MeetingPersonDTO> personDTOList) {
-        meetingBaseService.updateMeeting(meetingInfoDTO,agendaDTOList,personDTOList);
+    public ApiResult editMeeting(@RequestBody @Validated({MeetingInfoDTO.class,MeetingAgendaDTO.class,MeetingPersonDTO.class})MeetingDTO meetingDTO) {
+        meetingBaseService.updateMeeting(meetingDTO.getMeetingInfoDTO(),meetingDTO.getAgendaDTOList(),meetingDTO.getPersonDTOList());
         return ApiResult.ok("会议更新成功！");
     }
 
