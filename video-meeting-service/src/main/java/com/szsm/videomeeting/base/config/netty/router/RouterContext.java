@@ -41,17 +41,13 @@ public final class RouterContext {
             Object header = jsonObject.get(HEADER);
             DataHeader dataHeader = JSON.parseObject(JSON.toJSONString(header), DataHeader.class);
             BaseDataBody baseDataBody = BaseDataBody.loadBodyInfo(dataHeader.getOpType());
-            if (null == baseDataBody) {
-                log.error("数据体获取失败:{}", JSONObject.toJSONString(msg));
-                return null;
-            }
-            BaseDataBody dataBody =null;
-            if (!baseDataBody.isFlag()){
+
+            if (baseDataBody != null){
                 Object body = jsonObject.get(BODY);
-                dataBody = JSONObject.parseObject(JSON.toJSONString(body), baseDataBody.getClass());
+                baseDataBody = JSONObject.parseObject(JSON.toJSONString(body), baseDataBody.getClass());
             }
             dataOutside.setHeader(dataHeader);
-            dataOutside.setBaseDataBody(dataBody);
+            dataOutside.setBaseDataBody(baseDataBody);
         } catch (Exception e) {
             log.error("数据转换失败：{}", JSON.toJSONString(msg));
             throw new RuntimeException(e.getMessage());

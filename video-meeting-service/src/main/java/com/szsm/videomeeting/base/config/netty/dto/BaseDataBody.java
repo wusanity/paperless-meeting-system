@@ -14,15 +14,6 @@ public class BaseDataBody {
 
 
     /**
-     * 是否有数据
-     */
-    private boolean flag;
-
-    BaseDataBody(boolean flag){
-        this.flag = flag;
-    }
-
-    /**
      * 根据协议号拿到数据体详情
      *
      * @param operateType 数据操作类型
@@ -31,7 +22,7 @@ public class BaseDataBody {
     public static BaseDataBody loadBodyInfo(Integer operateType) {
         switch (operateType) {
             case DataContext.HEART_BEAT_PACKAGE:
-                return new BaseDataBody(true);
+                return null;
             case DataContext.JOIN_PACKAGE:
                 return new BaseDTO();
             default:

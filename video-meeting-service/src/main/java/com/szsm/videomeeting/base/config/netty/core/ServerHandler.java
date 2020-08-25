@@ -1,23 +1,16 @@
 package com.szsm.videomeeting.base.config.netty.core;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.szsm.videomeeting.base.config.netty.dto.BaseDTO;
 import com.szsm.videomeeting.base.config.netty.router.RouterContext;
-import com.szsm.videomeeting.base.context.ApiResult;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.RandomAccessFile;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Slf4j
@@ -201,7 +194,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         /*AttributeKey<String> key = AttributeKey.valueOf("userId");
         String userId = ctx.channel().attr(key).get();
         NettyConfig.getUserChannelMap().remove(userId);*/
-        Integer userId = NettyConfig.getChannelIdserMap().get(ctx.channel().id());
+        Long userId = NettyConfig.getChannelIdserMap().get(ctx.channel().id());
         NettyConfig.getChannelIdserMap().remove(ctx.channel().id());
         NettyConfig.getUserChannelMap().remove(userId);
         NettyConfig.getUserMeetingMap().remove(userId);
