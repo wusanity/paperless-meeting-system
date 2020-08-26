@@ -75,6 +75,12 @@ public class MeetingInfo extends BaseEntity<MeetingInfo> {
     @TableField(value = "on_off")
     private Integer onOff;
 
+    /**
+     * 版本号
+     */
+    @TableField(value = "版本号")
+    private Integer version;
+
 
 
 }

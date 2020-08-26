@@ -12,19 +12,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DataContext {
 
-        /**
-         * 心跳包数据
-         */
-        public static final int HEART_BEAT_PACKAGE = 0;
-        /**
-         * 新连接
-         */
-        public static final int JOIN_PACKAGE = 11;
-        /**
-        * 新增编辑会议
-        */
-        public static final int ADD_UPDATE_PACKAGE = 21;
+    /**
+     * 心跳包数据
+     */
+    public static final int HEART_BEAT_PACKAGE = 0;
+    /**
+     * 新连接
+     */
+    public static final int JOIN_PACKAGE = 11;
+    /**
+     * 新增编辑会议
+     */
+    public static final int ADD_UPDATE_PACKAGE = 21;
 
+    /**
+     * 回复查询基础信息
+     */
+    public static final int REPLY_BASE_MESSAGE = 1;
+    /**
+     * 回复下载文件
+     */
+    public static final int REPLY_FILE = 2;
 
     /**
      * 可变不定长信息内容，消息体

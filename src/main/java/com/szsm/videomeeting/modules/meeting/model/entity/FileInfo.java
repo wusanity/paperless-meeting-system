@@ -68,4 +68,19 @@ public class FileInfo extends BaseEntity {
     @ApiModelProperty(value = "文件大小")
     @TableField("file_Size")
     private String fileSize;
+
+    /**
+     * 类型：0上传，1下载
+     */
+    @ApiModelProperty(value = "类型：0上传，1下载")
+    @TableField("type")
+    private Integer type;
+
+    /**
+     * 类型：0上传，1下载
+     */
+    @ApiModelProperty(value = "用户id")
+    @TableField("userId")
+    private Long userId;
+
 }
