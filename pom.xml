@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.szsm</groupId>
-	<artifactId>video-meeting</artifactId>
+	<artifactId>paperless-meeting-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>video-meeting</name>
+	<name>paperless-meeting-system</name>
 	<packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
