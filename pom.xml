@@ -12,7 +12,6 @@
 	<artifactId>paperless-meeting-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>paperless-meeting-system</name>
-	<packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -185,6 +184,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+		<finalName>paperless-meeting-system</finalName>
 	</build>
 
 </project>
