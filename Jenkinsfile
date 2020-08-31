@@ -1,10 +1,10 @@
-def R_NAME = "wuzhike/paperless-meeting-system"  // Docker Image space/name
+def R_NAME = "sino-dc/paperless-meeting-system"  // Docker Image space/name
 def WEBHOOK_TOKEN = "paperless-meeting-system"  // http://10.3.69.41:8080/generic-webhook-trigger/invoke?token=${WEBHOOK_TOKEN}
 def S_NAME = 'paperless-meeting-system'
 //变量已经方法定义
 def remote = [:]
-remote.name = 'Machine26'
-remote.host = '10.3.69.26'
+remote.name = 'Machine27'
+remote.host = '10.3.69.27'
 remote.allowAnyHosts = true
 //构建流程定义
 pipeline {
