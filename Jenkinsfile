@@ -49,7 +49,7 @@ pipeline {
                 script {
                         sh 'echo hello dev'
                         sh 'mvn clean package -Dmaven.test.skip=true'
-                        sh 'mv ./target/location-video.jar ./location-video.jar'
+                        sh 'mv ./target/paperless-meeting-system.jar ./paperless-meeting-system.jar'
                 }
             }
         }

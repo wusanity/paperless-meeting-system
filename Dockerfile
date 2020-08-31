@@ -8,6 +8,6 @@ RUN /bin/sh -c 'touch /paperless-meeting-system.jar'
 VOLUME ["/usr/digital/comppose/docker-images-location-video"]
 EXPOSE 19000
 # 指定docker容器启动时运行jar包
-ENTRYPOINT ["java", "-jar","-Dspring.config.additional-location=/usr/digital/compose/docker-images-location-video/application.properties","-Dlog.path=/var/log/locationvideo-service","/paperless-meeting-system.jar"]
+ENTRYPOINT ["java", "-jar","/paperless-meeting-system.jar"]
 # 指定维护者的名字
 MAINTAINER wuzhike
