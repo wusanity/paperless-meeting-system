@@ -86,7 +86,7 @@ pipeline {
                     def requestBody = """
                         {"msgtype": "markdown","markdown": {"content": "## ${S_NAME} ${env.tagv} is released"  }}
                     """
-                    def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: requestBody, url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=f339b521-7c8a-41e4-8c73-d67d88dac37c"
+                    def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: requestBody, url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=60fa799c-4893-4620-9ff0-6471de8944a5"
                     sh "echo $response.content"
                 }
             }
