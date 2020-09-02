@@ -6,7 +6,6 @@ import com.szsm.meeting.modules.kk.mapper.PersonMapper;
 import com.szsm.meeting.modules.kk.model.dto.PersonDTO;
 import com.szsm.meeting.modules.kk.model.entity.Person;
 import com.szsm.meeting.base.exception.MyException;
-import com.szsm.meeting.modules.kk.enums.PersonErrorEnums;
 import com.szsm.meeting.modules.kk.mapper.PersonMapper;
 import com.szsm.meeting.modules.kk.model.dto.PersonDTO;
 import com.szsm.meeting.modules.kk.model.entity.Person;
