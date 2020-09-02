@@ -80,7 +80,18 @@ pipeline {
                 }
             }
         }
-
+        stage('Notification'){ // 通知企微机器人
+            agent any
+            steps {
+                script{
+                    def requestBody = """
+                        {"msgtype": "markdown","markdown": {"content": "## ${S_NAME} ${env.tagv} is released"  }}
+                    """
+                    def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: requestBody, url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=60fa799c-4893-4620-9ff0-6471de8944a5"
+                    sh "echo $response.content"
+                }
+            }
+        }
 
       }
     }
