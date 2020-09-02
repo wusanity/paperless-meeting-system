@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.szsm.meeting.base.constant.ApiConstant;
 import com.szsm.meeting.base.context.ApiResult;
 import com.szsm.meeting.base.exception.MyException;
-import com.szsm.meeting.modules.kk.enums.PersonErrorEnums;
+import com.szsm.meeting.modules.kk.enums.PersonErrorEnum;
 import com.szsm.meeting.base.constant.ApiConstant;
 import com.szsm.meeting.base.context.ApiResult;
 import com.szsm.meeting.base.exception.MyException;
 import com.szsm.meeting.base.util.ExcelUtil;
-import com.szsm.meeting.modules.kk.enums.PersonErrorEnums;
+import com.szsm.meeting.modules.kk.enums.PersonErrorEnum;
 import com.szsm.meeting.modules.meeting.constant.MeetingConstant;
 import com.szsm.meeting.modules.meeting.mapper.FileInfoMapper;
 import com.szsm.meeting.modules.meeting.model.dto.FileUploadDTO;
@@ -50,7 +50,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     @Override
     public ApiResult upload(MultipartFile file, FileUploadDTO fileUploadDTO) throws MyException {
         if (fileUploadDTO == null || file == null) {
-            return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
+            return ApiResult.fail(PersonErrorEnum.PARAM_MISS);
         }
         ApiResult apiResult = new ApiResult();
 
@@ -131,7 +131,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         BufferedInputStream bufferedInputStream = null;
         String fileName = "";
         if (StringUtils.isBlank(modelFileName) && fileId == null) {
-            return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
+            return ApiResult.fail(PersonErrorEnum.PARAM_MISS);
         }
 
         try {
@@ -202,7 +202,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     public ApiResult excelImport(MultipartFile file) {
         ApiResult apiResult = new ApiResult();
         if(file == null) {
-            return ApiResult.fail(PersonErrorEnums.PARAM_MISS);
+            return ApiResult.fail(PersonErrorEnum.PARAM_MISS);
         }
 
         try {

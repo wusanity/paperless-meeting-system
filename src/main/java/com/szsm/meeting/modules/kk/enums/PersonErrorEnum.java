@@ -1,4 +1,4 @@
-package com.szsm.meeting.modules.meeting.enums;
+package com.szsm.meeting.modules.kk.enums;
 
 
 import com.szsm.meeting.base.enums.ServiceExceptionEnum;
@@ -11,7 +11,7 @@ import com.szsm.meeting.base.enums.ServiceExceptionEnum;
  * @author : wuzhike
  * @date : 2020/7/30 11:09
  */
-public enum MeetingErrorEnums implements ServiceExceptionEnum {
+public enum PersonErrorEnum implements ServiceExceptionEnum {
 
     /**
      * 参数为空
@@ -24,7 +24,7 @@ public enum MeetingErrorEnums implements ServiceExceptionEnum {
     private int code;
     private String message;
 
-    MeetingErrorEnums(int code, String message) {
+    PersonErrorEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
