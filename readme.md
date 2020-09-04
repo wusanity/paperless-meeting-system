@@ -54,5 +54,12 @@ idea下载Sonar规范：file-settings-plugins，搜索SonarLink，安装。项�
  五.代码检测
     1.每次代码要提交合并时，需自己用sonar插件进行检测代码写的情况，减少代码错误，提高代码质量。
     2.每次代码发布成功都会发布到sonarQube上，管理员可以查看每次代码发布的检测结果。
-    地址：http://10.0.6.60:9000/dashboard?id=paperless-meeting-system
+    地址：http://10.3.69.79:9000/dashboard?id=paperless-meeting-system
+ 六.单元测试
+    1.元测试代码必须写在如下工程目录：src/java/test，不允许写在业务代码目录下，单元测试包结构和源码结构必须保持一致。
+    2.单元测试文件名字是由"被测试文件名 + Test"组成，并且继承基础单元测试类PaperlessMeetingApplicationTests,
+      测试的方法名，命名规则为"test+被测试的方法名"
+    3.每个单元测试方法都是单独的，不能互相调用。
+    4.核心业务、核心应用、核心模块的增量代码确保单元测试通过(主要为service层的代码)。
+    
     

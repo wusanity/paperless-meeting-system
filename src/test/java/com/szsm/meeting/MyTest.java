@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@SpringBootTest(classes = PaperlesMeetingSystemApplication.class)
+@SpringBootTest(classes = PaperlessMeetingSystemApplication.class)
 @RunWith(SpringRunner.class)
 public class MyTest {
     @Autowired

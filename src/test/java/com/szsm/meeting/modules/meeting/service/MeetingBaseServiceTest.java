@@ -1,7 +1,7 @@
 package com.szsm.meeting.modules.meeting.service;
 
 
-import com.szsm.meeting.BaseTest;
+import com.szsm.meeting.PaperlessMeetingApplicationTests;
 import com.szsm.meeting.modules.meeting.model.dto.MeetingAgendaDTO;
 import com.szsm.meeting.modules.meeting.model.dto.MeetingInfoDTO;
 import com.szsm.meeting.modules.meeting.model.dto.MeetingPersonDTO;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author: LiuJun
  * @date: 2020/9/2 15:47
  */
-public class MeetingBaseServiceTest extends BaseTest {
+public class MeetingBaseServiceTest extends PaperlessMeetingApplicationTests {
     @Autowired
     private MeetingBaseService meetingBaseService;
 

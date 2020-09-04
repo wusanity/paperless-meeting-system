@@ -1,7 +1,6 @@
 package com.szsm.meeting;
 
 import com.szsm.meeting.base.config.MyProperties;
-import com.szsm.meeting.base.config.MyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,10 +13,10 @@ import org.springframework.web.filter.CorsFilter;
 @SpringBootApplication
 @EnableConfigurationProperties({MyProperties.class})
 @EnableTransactionManagement
-public class PaperlesMeetingSystemApplication {
+public class PaperlessMeetingSystemApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PaperlesMeetingSystemApplication.class, args);
+        SpringApplication.run(PaperlessMeetingSystemApplication.class, args);
     }
 
     private CorsConfiguration buildConfig() {
