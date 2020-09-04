@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     try{
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=paperless-meeting-system -Dsonar.host.url=http://10.3.69.41:9000  -Dsonar.login=9caf0030a6947ec2e40231f218d3297c01a50fbb'
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=paperless-meeting-system -Dsonar.host.url=http://10.3.69.79:9000  -Dsonar.login=9caf0030a6947ec2e40231f218d3297c01a50fbb'
                      }catch(Exception e){
                         println 'Exception：'+e
                      }
