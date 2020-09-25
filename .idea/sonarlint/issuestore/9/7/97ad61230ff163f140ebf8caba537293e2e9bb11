@@ -1,0 +1,14 @@
+
+U
+java:S1118
+":Add a private constructor to hide the implicit public one.(ï±¶÷ıÿÿÿÿ
+`
+java:S3252"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(£¹–úÿÿÿÿ
+H
+java:S1611"2Remove the parentheses around the "item" parameter(³Šé¯
+=
+java:S1905"'Remove this unnecessary cast to "List".(³Šé¯
+[
+java:S3252"FUse static access with "com.alibaba.fastjson.JSON" for "toJSONString".(ÏßÖ-
+i
+java:S1602"SRemove useless curly braces around statement and then remove useless return keyword(³Šé¯

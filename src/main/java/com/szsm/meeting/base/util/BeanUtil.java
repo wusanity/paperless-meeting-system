@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * json转为对象或集合
+ * 将json转为对象或集合
  */
+
 public class BeanUtil {
 
     public  static <T> T copyPropertiesByFastJson(Object source,Class<T> target) {
@@ -24,5 +25,4 @@ public class BeanUtil {
             return copyPropertiesByFastJson(item, target);
         }).collect(Collectors.toList());
     }
-
 }
